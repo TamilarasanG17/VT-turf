@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3000";
+const API_URL = "https://vt-turf.onrender.com";
 
 document.addEventListener("DOMContentLoaded", function () {
     const durationSelect = document.getElementById("duration");
