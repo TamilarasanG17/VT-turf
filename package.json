@@ -1,0 +1,38 @@
+{
+  "name": "turf-booking-application",
+  "version": "1.0.0",
+  "main": "server.js",
+  "engines": {
+    "node": "18.x"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "pm2 start server.js && pm2 start seedcities.js && pm2 start seedturf.js",
+    "seed:cities": "node seedcities.js",
+    "seed:turf": "node seedturf.js",
+    "dev": "concurrently \"node seedcities.js\" \"node seedturf.js\" \"node server.js\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.3",
+    "concurrently": "^9.1.0",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.8.0",
+    "nodemailer": "^6.9.16",
+    "otp-generator": "^4.0.1",
+    "pm2": "^5.4.3",
+    "resend": "^6.9.1",
+    "vercel": "^37.14.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}

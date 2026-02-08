@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VTurfZone</title>
+    <link rel="icon" href="logo.jpeg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('images/turf2.jpeg') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+        .intro h1 {
+            font-size: 3em;
+            margin: 0;
+        }
+        .intro p {
+            font-size: 1.2em;
+            color: #f8f9fa;
+            max-width: 800px;
+            padding: 10px;
+            margin: 15px auto;
+        }
+        .btn-explore {
+            background-color: #32CD32;
+            color: #000;
+            padding: 12px 25px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-bottom: 20px; 
+        }
+        .btn-explore:hover {
+            background-color: #228B22; 
+        }
+.location-input-container {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+    margin: 10px auto;
+}
+
+.location-input {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 10px;
+}
+
+.location-input input {
+    flex: 1;
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.search-button {
+    background-color: #ffcc00;
+    color: #000;
+    padding: 1px 0px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-content {
+    background-color: #1e1e1e;
+    width: 100%;
+    border: 1px solid #444;
+    border-radius: 5px;
+    display: none;
+    overflow-y: auto;
+    max-height: 200px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    margin-top: 5px;
+}
+
+@media (max-width: 400px) {
+    .location-input-container {
+        padding: 5px;
+    }
+
+    .location-input input {
+        padding: 8px;
+        font-size: 0.9em;
+    }
+
+    .search-button {
+        padding: 8px;
+        font-size: 0.9em;
+    }
+}
+
+@media (min-width: 401px) and (max-width: 768px) {
+    .location-input input {
+        padding: 10px;
+        font-size: 1em;
+    }
+
+    .search-button {
+        padding: 10px;
+        font-size: 1em;
+    }
+
+    .dropdown-content {
+        max-height: 250px;
+    }
+}
+
+@media (min-width: 769px) {
+    .location-input {
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .location-input input {
+        flex: 2;
+        padding: 12px;
+        font-size: 1.1em;
+    }
+
+    .search-button {
+        flex: 1;
+        padding: 12px 20px;
+        font-size: 1.1em;
+    }
+
+    .dropdown-content {
+        max-height: 300px;
+    }
+}
+        .footer {
+            color: #fff;
+            text-align: center;
+            padding: 8px;
+            font-size: 0.9em;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+         .profile-dropdown {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            z-index: 20;
+        }
+        .profile-icon {
+            font-size: 1.8em;
+            color: #fff;
+        }
+        .profile-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #1e1e1e;
+            border: 1px solid #444;
+            border-radius: 5px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            z-index: 10;
+            width: 200px;
+        }
+        .profile-content div {
+            padding: 10px;
+            cursor: pointer;
+            color: #f8f9fa;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .profile-content div:hover {
+            background-color: #3a3a3a;
+            color: #32CD32;
+        }
+        .bookings-section {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 30;
+            justify-content: center;
+            align-items: center;
+        }
+        .bookings-content {
+            background-color: #2c2c2c;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            color: #fff;
+            max-height: 100vh;
+            overflow-y: auto;
+        }
+        .bookings-content h2 {
+            margin-top: 0;
+            text-align: center;
+        }
+        .bookings-list {
+            list-style: none;
+            padding: 0;
+        }
+        .bookings-list li {
+            background: #3a3a3a;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .close-bookings {
+            display: block;
+            margin: 10px auto 0;
+            padding: 10px 20px;
+            background-color: #32CD32;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .close-bookings:hover {
+            background-color: #228B22;
+        }
+        .booking-image {
+                width: 80px; 
+                height: 80px;
+                border-radius: 5px;
+                margin-right: 10px;
+                float: left;
+                object-fit: cover;
+            }
+
+        @media (max-width: 768px) {
+            .intro h1 {
+                font-size: 2.5em;
+            }
+            .intro p {
+                font-size: 1em;
+                padding: 10px;
+            }
+            .btn-explore {
+                padding: 10px 20px;
+                font-size: 1em;
+            }
+            .footer {
+                font-size: 0.8em;
+                padding: 5px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .intro h1 {
+                font-size: 2em;
+            }
+            .intro p {
+                font-size: 0.9em;
+            }
+            .btn-explore {
+                padding: 8px 15px;
+                font-size: 0.9em;
+            }
+            .footer {
+                font-size: 0.75em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+       
+        <div class="intro">
+            <h1>Welcome to VTurfZone</h1>
+            <p>Discover the ease of turf booking with VTurfZone. <strong>Explore</strong>, <strong>book</strong>, and <strong>enjoy</strong> top-notch turfs tailored just for you.</p>
+            <button class="btn-explore" onclick="showLocationInput()">Explore Now</button>
+            <div class="location-input-container" id="locationInput">
+                <div class="location-input">
+                    <input type="text" placeholder="Enter your location" oninput="fetchCities(this.value)" id="cityInput">
+                    <button class="search-button" onclick="searchLocation()">Search</button>
+                </div>
+                <div id="cityDropdown" class="dropdown-content"></div>
+            </div>
+        </div>
+        <footer class="footer">
+            <p>&copy; 2024 VTurfZone. All rights reserved.</p>
+            <p><a href="#privacy">Privacy Policy</a> | <a href="#terms">Terms of Service</a></p>
+        </footer>
+
+        <div class="bookings-section" id="bookingsSection">
+            <div class="bookings-content">
+                <h2>Your Bookings History</h2>
+                <ul class="bookings-list" id="bookingsList">
+                </ul>
+                <button class="close-bookings" onclick="closeBookings()">Close</button>
+            </div>
+        </div>
+    </header>
+    <script>
+
+        const API_URL = "http://localhost:3000";
+        function toggleProfileDropdown(event) {
+            event.stopPropagation(); 
+            const profileContent = document.getElementById('profileContent');
+            profileContent.style.display = profileContent.style.display === 'block' ? 'none' : 'block';
+        }
+
+        window.onclick = function(event) {
+            const profileContent = document.getElementById('profileContent');
+            const profileDropdown = document.querySelector('.profile-dropdown');
+            if (!profileDropdown.contains(event.target)) {
+                profileContent.style.display = 'none';
+            }
+        }
+        function logout() {
+            alert("Logging out...");
+            window.location.href = 'index.html';
+        }
+        function showLocationInput() {
+            const locationInputContainer = document.getElementById('locationInput');
+            locationInputContainer.style.display = 'flex';
+        }
+
+        async function fetchCities(query) {
+            const dropdown = document.getElementById('cityDropdown');
+            dropdown.innerHTML = '';
+            dropdown.style.display = 'none';
+
+            if (query.length === 0) return;
+
+            try {
+                const response = await fetch(`${API_URL}/cities?name=${query}`);
+                const cities = await response.json();
+
+                if (cities.length > 0) {
+                    dropdown.style.display = 'block';
+                    cities.forEach(city => {
+                        const div = document.createElement('div');
+                        div.textContent = city.name;
+                        div.onclick = () => selectCity(city.name);
+                        dropdown.appendChild(div);
+                    });
+                }
+            } catch (error) {
+                console.error('Error fetching cities:', error);
+            }
+        }
+
+        function selectCity(cityName) {
+            document.getElementById('cityInput').value = cityName;
+            document.getElementById('cityDropdown').style.display = 'none';
+        }
+
+        function searchLocation() {
+    const location = document.getElementById('cityInput').value;
+    if (location) {
+        window.location.href = `Availableturf.html?city=${encodeURIComponent(location)}`;
+    } else {
+        alert("Please enter a location.");
+    }
+}
+
+    </script>
+</body>
+</html>

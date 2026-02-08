@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VTurfZone</title>
+    <link rel="icon" href="logo.jpeg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        .full-page {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            color: #333;
+        }
+
+        #landing {
+            background: url('images/turf2.jpeg') no-repeat center center/cover;
+            color: #fff;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .turf-name {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .location-city {
+            font-size: 1.5rem;
+        }
+
+        #about {
+            background-color: #f9f9f9;
+            color: #333;
+            padding: 4rem 2rem;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #28a745;
+        }
+#sports {
+    background-color: #000;
+    color: #fff;
+    padding: 4rem 2rem;
+    opacity: 0;
+    transform: translateY(100px);
+    transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+.sports-grid {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+.sport-box {
+    background-color: #444;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 30%;
+    text-align: center;
+    padding: 1rem;
+    opacity: 0;
+    transform: translateY(50px);
+    animation: fadeInUp 1s ease forwards;
+}
+
+
+.sport-box:nth-child(1) {
+    animation-delay: 0.3s;
+}
+
+.sport-box:nth-child(2) {
+    animation-delay: 0.6s;
+}
+
+.sport-box:nth-child(3) {
+    animation-delay: 0.9s;
+}
+
+.sport-box img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+        #reviews {
+            background-color: #f9f9f9;
+            color: #333;
+            padding: 4rem 2rem;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: opacity 1.4s ease, transform 1.4s ease;
+        }
+
+        .reviews-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+        .review-box {
+    position: relative;
+    padding: 100px; 
+    margin: 30px 0; 
+    border: 2px solid green; 
+    border-radius: 8px; 
+}
+
+
+.edit-icon, .delete-icon {
+    position: absolute;
+    top: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #555;
+}
+
+.edit-icon {
+    right: 30px;
+}
+
+.delete-icon {
+    right: 10px;
+    color: red;  
+}
+
+
+.edit-icon:hover, .delete-icon:hover {
+    color: #007BFF; 
+}
+
+.delete-icon:hover {
+    color: #FF0000; 
+}
+
+.review-text {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.star-rating {
+    font-size: 12px;
+    color: #FFD700; 
+}
+
+
+        .review-box:hover {
+            transform: scale(1.05);
+        }
+
+        .star-rating .star {
+        font-size: 1.5rem;
+        color: lightgray;
+        cursor: pointer;
+    }
+    .star-rating .star.selected {
+        color: gold;
+    }
+        .review-form {
+            background-color: #f1f1f1;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border-radius: 8px;
+            text-align: left;
+            display: none; 
+        }
+
+        .review-form label {
+            font-size: 1rem;
+            margin-top: 1rem;
+            display: block;
+        }
+
+        .review-form input, .review-form textarea, .review-form select {
+            width: 100%;
+            padding: 0.5rem;
+            margin-top: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .submit-review-btn {
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .submit-review-btn:hover {
+            background-color: #0056b3;
+        }
+
+        #booking {
+            background-color: #28a745;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: background-color 0.3s;
+        }
+
+        #booking:hover {
+            background-color: #218838;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .active-section {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        @media screen and (max-width: 768px) {
+            .turf-name {
+                font-size: 2.5rem;
+            }
+
+            .location-city {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .sports-grid {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .sport-box {
+                width: 100%;
+            }
+
+            #reviews {
+                padding: 3rem 1.5rem;
+            }
+
+            .reviews-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .review-box {
+                width: 90%;
+            }
+
+            #booking {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .turf-name {
+                font-size: 1.8rem;
+            }
+
+            .location-city {
+                font-size: 1rem;
+            }
+
+            #about p {
+                font-size: 0.9rem;
+            }
+
+            .section-title {
+                font-size: 1.3rem;
+            }
+
+            .sport-box img {
+                height: 200px;
+            }
+
+            .submit-review-btn {
+                font-size: 0.9rem;
+                padding: 0.6rem 1.2rem;
+            }
+
+            #booking {
+                font-size: 1rem;
+                padding: 0.8rem;
+            }
+        }
+        .submit-review-btn {
+    width: 140px;
+    margin: 10px auto;
+}
+
+        @media screen and (max-width: 480px) {
+    .sport-box {
+        animation: fadeInUp 0.8s ease forwards;
+    }
+}
+    </style>
+</head>
+<body>
+    <section id="landing" class="full-page">
+        <div>
+            <h1 class="turf-name">Turf Name Here</h1>
+            <p class="location-city">Turf Road, City Name, State, Country</p>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2 class="section-title">About the Turf</h2>
+        <p>
+            Welcome to VTurfZone, the ultimate destination for sports enthusiasts! Our turf offers premium facilities
+            designed to provide an unparalleled experience for players of all levels. With a state-of-the-art surface,
+            advanced lighting, and a dedicated maintenance team, our turf ensures that every game is a top-tier experience.
+        </p>
+        <p>
+            Located at a convenient and accessible area in the heart of the city, our venue is perfect for hosting various sports
+            activities, events, and leagues. VTurfZone caters to a wide range of sports, from cricket and football to tennis, ensuring
+            that everyone finds their place on the field.
+        </p>
+        <p>
+            Additionally, we offer ample parking, a comfortable seating area for spectators, and clean locker rooms to ensure a complete
+            and enjoyable experience for both players and guests. Our team is committed to providing a safe, well-maintained, and dynamic
+            environment where players can focus on their game and bring out their best.
+        </p>
+        <p>
+            Whether you're a seasoned player or just starting out, VTurfZone welcomes you to join the community and enjoy sports
+            with passion and professionalism. Book a slot with us and experience the difference that VTurfZone has to offer!
+        </p>
+    </section>
+    <section id="sports">
+        <h2>Available Sports</h2>
+        <div class="sports-grid">
+            <div class="sport-box">
+                <img src="cricket.jpg" alt="Cricket">
+                <p>Cricket</p>
+            </div>
+            <div class="sport-box">
+                <img src="football.jpg" alt="Football">
+                <p>Football</p>
+            </div>
+            <div class="sport-box">
+                <img src="tennis.jpg" alt="Tennis">
+                <p>Tennis</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="reviews">
+        <h2>Reviews</h2>
+        <button onclick="showReviewForm()" class="submit-review-btn">Add Review</button>
+        <div class="reviews-grid" id="reviewList">
+            <div class="review-box">
+                <p>"Excellent turf and great amenities!" - User A</p>
+                <div class="star-rating">★★★★★</div>
+            </div>
+            <div class="review-box">
+                <p>"Had an amazing experience here." - User B</p>
+                <div class="star-rating">★★★★☆</div>
+            </div>
+        </div>
+        
+        <div class="review-form" id="reviewForm">
+            <h3>Add a Review</h3>
+            <label for="reviewerName">Name:</label>
+            <input type="text" id="reviewerName" placeholder="Enter your name">
+            <label for="reviewRating">Rating:</label>
+            <div id="starRating" class="star-rating">
+                <span data-rating="1" class="star">&#9733;</span>
+                <span data-rating="2" class="star">&#9733;</span>
+                <span data-rating="3" class="star">&#9733;</span>
+                <span data-rating="4" class="star">&#9733;</span>
+                <span data-rating="5" class="star">&#9733;</span>
+            </div>
+            <label for="reviewText">Review:</label>
+            <textarea id="reviewText" rows="4" placeholder="Write your review here..."></textarea>
+            <button onclick="submitReview()" class="submit-review-btn">Submit Review</button>
+        </div>
+    </section>
+    <section id="booking" onclick="redirectToBooking()">
+        Book Now
+    </section>
+
+    <script>
+
+        const API_URL = "http://localhost:3000";
+        function redirectToBooking() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const turfId = urlParams.get("id");
+
+        if (turfId) {
+            window.location.href = `/booking.html?id=${turfId}`;
+        } else {
+            alert("Turf ID not found.");
+        }
+    }
+
+    function showReviewForm() {
+    const reviewForm = document.getElementById('reviewForm');
+    reviewForm.style.display = (reviewForm.style.display === 'none' || reviewForm.style.display === '') ? 'block' : 'none';
+
+    if (window.innerWidth <= 768) {
+        reviewForm.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+
+    let selectedRating = 0;
+
+document.querySelectorAll('#starRating .star').forEach(star => {
+    star.addEventListener('click', function () {
+        selectedRating = this.getAttribute('data-rating');
+        updateStarRating(selectedRating);
+    });
+});
+
+function updateStarRating(rating) {
+    document.querySelectorAll('#starRating .star').forEach(star => {
+        if (star.getAttribute('data-rating') <= rating) {
+            star.classList.add('selected');
+        } else {
+            star.classList.remove('selected');
+        }
+    });
+}
+
+function submitReview() {
+    const name = document.getElementById('reviewerName').value;
+    const text = document.getElementById('reviewText').value;
+
+    if (!name || !selectedRating || !text) {
+        alert("Please fill out all fields.");
+        return;
+    }
+
+    const reviewData = {
+        reviewerName: name,
+        rating: selectedRating,
+        text: text
+    };
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const turfId = urlParams.get("id");
+
+    if (!turfId) {
+        alert("Turf ID not found.");
+        return;
+    }
+
+    fetch(`${API_URL}/api/turf/${turfId}/review`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(reviewData),
+    })
+    .then(response => response.json())
+    .then(data => {
+        displayReviews();
+    })
+    .catch(err => {
+        console.error('Error submitting review:', err);
+        alert('Error submitting review.');
+    });
+
+    document.getElementById('reviewerName').value = '';
+    document.getElementById('reviewText').value = '';
+    selectedRating = 0;
+    updateStarRating(0);
+    document.getElementById('reviewForm').style.display = 'none';
+}
+
+
+function deleteReview(reviewBox, reviewId) {
+    const turfId = new URLSearchParams(window.location.search).get("id"); 
+    if (!turfId) {
+        console.error('Turf ID is not defined');
+        return;
+    }
+    
+        fetch(`${API_URL}/api/reviews/${turfId}/${reviewId}`, {
+            method: 'DELETE',
+        })
+        .then(response => {
+            if (!response.ok) throw new Error('Error deleting review');
+            return response.json();
+        })
+        .then(data => {
+           
+                reviewBox.remove(); 
+            
+        })
+        .catch(err => {
+            console.error('Error deleting review:', err);
+            alert('Error deleting review.');
+        });
+    
+}
+    function displayReviews() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const turfId = urlParams.get("id");
+
+    if (!turfId) {
+        alert("Turf ID not found.");
+        return;
+    }
+
+    fetch(`${API_URL}/api/turf/${turfId}`)
+        .then(response => response.json())
+        .then(turf => {
+            const reviewList = document.getElementById('reviewList');
+            reviewList.innerHTML = '';  
+
+            turf.reviews.forEach(review => {
+                const reviewBox = document.createElement('div');
+                reviewBox.className = 'review-box';
+                
+
+                const deleteIcon = document.createElement('i');
+                deleteIcon.className = 'fas fa-trash delete-icon';
+                deleteIcon.onclick = () => deleteReview(reviewBox, review._id);
+
+                reviewBox.innerHTML = `
+                    <p class="review-text">"${review.text}" - ${review.reviewerName}</p>
+                    <div class="star-rating">${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}</div>
+                `;
+                
+                reviewBox.appendChild(deleteIcon);
+
+                reviewList.appendChild(reviewBox);
+            });
+        })
+        .catch(err => {
+            console.error('Error fetching reviews:', err);
+            alert('Error fetching reviews.');
+        });
+}
+
+    
+        window.addEventListener('scroll', handleScroll);
+        
+        function handleScroll() {
+            const sections = document.querySelectorAll('section');
+            const scrollPosition = window.pageYOffset + (window.innerHeight * 0.6);
+    
+            sections.forEach(section => {
+                if (section.offsetTop < scrollPosition) {
+                    section.classList.add('active-section');
+                }
+            });
+        }
+    
+        window.addEventListener('load', () => {
+            displayReviews();
+            handleScroll();
+        });
+
+    document.addEventListener("DOMContentLoaded", async () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const turfId = urlParams.get("id");
+         if (turfId) {
+            try {
+                const response = await fetch(`${API_URL}/api/turf/${turfId}`);
+                if (!response.ok) {
+                    throw new Error("Failed to fetch turf details");
+                }
+                const turf = await response.json();
+                document.querySelector("#landing").style.backgroundImage = `url('${turf.image}')`;
+                document.querySelector(".turf-name").textContent = turf.name;
+                document.querySelector(".location-city").textContent = `${turf.location}, ${turf.city}`;
+
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        }
+
+        
+    });
+</script>
+
+    
+</body>
+</html>

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VTurfZone</title>
+    <link rel="icon" href="logo.jpeg">
+    <style>
+         body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #e8f5e9;
+        }
+        .splash-screen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #43a047;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+        }
+        .splash-screen img {
+            width: 100px;
+            animation: fadeOut 2s ease-out forwards;
+        }
+        .form-container {
+            display: none;
+            background-color: #ffffff;
+            padding: 20px 25px;
+            border-radius: 12px;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+            width: 90%;
+            max-width: 400px;
+            transition: transform 0.3s;
+        }
+        .form-container h2 {
+            color: #43a047;
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-container label {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 5px;
+            display: block;
+        }
+        .form-container input[type="text"],
+        .form-container input[type="email"],
+        .form-container input[type="password"] {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            margin-left: 10px;
+        }
+        .form-container input[type="text"]:focus,
+        .form-container input[type="email"]:focus,
+        .form-container input[type="password"]:focus {
+            border-color: #43a047;
+            outline: none;
+        }
+        
+        .form-container button {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #43a047;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .form-container button:hover {
+            background-color: #2e7d32;
+        }
+        
+        .form-container p {
+            text-align: center;
+            font-size: 14px;
+        }
+        .form-container a {
+            color: #43a047;
+            text-decoration: none;
+        }
+        .form-container a:hover {
+            text-decoration: underline;
+        }
+        .password-container {
+            position: relative;
+        }
+        .password-container input[type="password"] {
+            padding-right: 15px;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 40%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            cursor: pointer;
+            color: #888;
+        }
+        @media (max-width: 600px) {
+            .form-container {
+                padding: 15px;
+                width: 85%;
+            }
+        }
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; visibility: hidden; }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+
+    <div class="splash-screen" id="splashScreen">
+        <img src="logo.jpeg" alt="VTurfZone Logo">
+    </div>
+    
+    <div id="signupSection" class="form-container">
+        <h2>Signup</h2>
+        <form id="signupForm">
+            <label for="signupUsername">Username:</label>
+            <input type="text" id="signupUsername" name="username" required>
+            <label for="signupEmail">Email:</label>
+            <input type="email" id="signupEmail" name="email" required>
+            
+            <label for="signupPassword">Password:</label>
+             <div class="password-container">
+                <input type="password" id="signupPassword" name="password" required>
+                <span class="toggle-password" onclick="togglePassword('signupPassword')">
+                    <i class="fas fa-eye"></i>
+                </span>
+            </div>
+            
+            <button type="submit">Signup</button>
+        </form>
+        <p>Already have an account? <a href="javascript:void(0);" onclick="showLoginForm()">Login</a></p>
+    </div>
+
+    <div id="loginSection" class="form-container hidden">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <label for="loginEmail">Email:</label>
+            <input type="email" id="loginEmail" name="email" required>
+            
+            <label for="loginPassword">Password:</label>
+            <div class="password-container">
+                <input type="password" id="loginPassword" name="password" required>
+                <span class="toggle-password" onclick="togglePassword('loginPassword')">
+                    <i class="fas fa-eye"></i>
+                </span>
+            </div>
+            
+            <button type="submit">Login</button>
+        </form>
+        <p><a href="javascript:void(0);" onclick="showForgotPassword()">Forgot Password?</a></p>
+        <p>Don't have an account? <a href="javascript:void(0);" onclick="showSignupForm()">Signup</a></p>
+    </div>
+
+    <div id="forgotPasswordSection" class="form-container hidden">
+        <h2>Forgot Password</h2>
+        <form id="forgotPasswordForm">
+            <label for="forgotPasswordEmail">Enter your Email:</label>
+            <input type="email" id="forgotPasswordEmail" name="email" required>
+            
+            <button type="submit">Send OTP</button>
+        </form>
+    </div>
+
+    <div id="otpSection" class="form-container hidden">
+        <h2>OTP Verification</h2>
+        <form id="otpForm">
+            <label for="otp">Enter OTP:</label>
+            <input type="text" id="otp" name="otp" required>
+            
+            <button type="submit">Verify OTP</button>
+        </form>
+    </div>
+
+    <div id="loadingSpinner" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 100;">
+        <i class="fas fa-spinner fa-spin" style="font-size: 48px; color: #43a047;"></i>
+    </div>
+    
+
+    <script>
+        const API_URL = "http://localhost:3000";
+        function showLoadingSpinner(show) {
+    const spinner = document.getElementById('loadingSpinner');
+    spinner.style.display = show ? 'block' : 'none';
+}
+
+        let currentStep = 'signup'; 
+        let currentEmail = ''; 
+
+        function showSignupForm() {
+            document.getElementById('signupSection').style.display = 'block';
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('otpSection').style.display = 'none';
+            document.getElementById('forgotPasswordSection').style.display = 'none';
+        }
+        function showLoginForm() {
+            document.getElementById('signupSection').style.display = 'none';
+            document.getElementById('loginSection').style.display = 'block'; 
+            document.getElementById('otpSection').style.display = 'none';
+            document.getElementById('forgotPasswordSection').style.display = 'none';
+       }
+
+        function showForgotPassword() {
+            document.getElementById('signupSection').style.display = 'none';
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('otpSection').style.display = 'none';
+            document.getElementById('forgotPasswordSection').style.display = 'block';
+        }
+
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const icon = input.nextElementSibling.querySelector("i");
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        }
+document.getElementById('signupForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    showLoadingSpinner(true);
+
+    const email = document.getElementById('signupEmail').value;
+    const password = document.getElementById('signupPassword').value;
+
+    try {
+        const response = await fetch(`${API_URL}/api/signup`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+             mode: 'cors',
+            body: JSON.stringify({ email, password })
+        });
+        const result = await response.json();
+
+        if (result.success) {
+            currentEmail = email;
+            document.getElementById('signupSection').style.display = 'none';
+            document.getElementById('otpSection').style.display = 'block';
+            Swal.fire({
+                icon: 'success',
+                title: 'OTP Sent Successfully',
+                text: 'Please check your email to enter the OTP.'
+            });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Signup Failed',
+                text: result.message
+            });
+        }
+    } catch (error) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'An error occurred. Please try again.'
+        });
+    } finally {
+        showLoadingSpinner(false);
+    }
+});
+
+document.getElementById('loginForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    showLoadingSpinner(true);
+
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+
+    try {
+        const response = await fetch(`${API_URL}/api/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+             mode: 'cors',
+            body: JSON.stringify({ email, password })
+        });
+        const result = await response.json();
+
+        if (result.success) {
+            currentEmail = email;
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('otpSection').style.display = 'block';
+            Swal.fire({
+                icon: 'success',
+                title: 'OTP Sent Successfully',
+                text: 'Please check your email to enter the OTP.'
+            });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Login Failed',
+                text: result.message
+            });
+        }
+    } catch (error) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'An error occurred. Please try again.'
+        });
+    } finally {
+        showLoadingSpinner(false);
+    }
+});
+
+document.getElementById('forgotPasswordForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    showLoadingSpinner(true);
+
+    const email = document.getElementById('forgotPasswordEmail').value;
+
+    try {
+        const response = await fetch(`${API_URL}/api/forgot-password`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+             mode: 'cors',
+            body: JSON.stringify({ email })
+        });
+        const result = await response.json();
+
+        if (result.success) {
+            currentEmail = email;
+            document.getElementById('forgotPasswordSection').style.display = 'none';
+            document.getElementById('otpSection').style.display = 'block';
+            Swal.fire({
+                icon: 'success',
+                title: 'OTP Sent Successfully',
+                text: 'Please check your email to enter the OTP.'
+            });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: result.message
+            });
+        }
+    } catch (error) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'An error occurred. Please try again.'
+        });
+    } finally {
+        showLoadingSpinner(false);
+    }
+});
+        document.getElementById('otpForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const otp = document.getElementById('otp').value;
+
+            const response = await fetch(`${API_URL}/api/verify-otp`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                 mode: 'cors',
+                body: JSON.stringify({ email: currentEmail, otp })
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                window.location.href = "landingpage.html";
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'OTP Verification Failed',
+                    text: result.message
+                });
+            }
+        });
+
+        showSignupForm();
+
+        window.addEventListener('load', () => {
+    setTimeout(() => {
+        const splashScreen = document.getElementById('splashScreen');
+        splashScreen.style.display = 'none';
+        showSignupForm();
+    }, 3000); 
+});
+
+    </script>
+</body>
+</html>

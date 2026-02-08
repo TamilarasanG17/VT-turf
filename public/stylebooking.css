@@ -1,0 +1,323 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+}
+
+.container {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    overflow: hidden;
+}
+
+.image-section {
+    width: 50%;
+    position: relative;
+}
+
+.bg-image {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    transition: transform 1.5s ease-in-out;
+}
+
+.image-section:hover .bg-image {
+    transform: scale(1.1);
+}
+
+.form-section {
+    width: 50%;
+    padding: 40px;
+    background-color: #fff;
+    animation: slideIn 1s ease-out forwards;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 2.5em;
+    color: #333;
+    transition: color 0.5s ease-in-out;
+}
+
+header h1:hover {
+    color: #4caf50;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #333;
+    font-size: 1.1em;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #4caf50;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+form input, form select, form textarea {
+    margin-bottom: 15px;
+    padding: 12px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s ease;
+}
+
+form input:focus, form select:focus, form textarea:focus {
+    border-color: #4caf50;
+}
+
+.submit-btn {
+    padding: 15px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #388e3c;
+}
+
+footer {
+    background-color: white;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    margin-top: auto;
+}
+
+.social-media {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social-icon {
+    color: black;
+    font-size: 1.5em;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-icon:hover {
+    transform: scale(1.1);
+    color: #4caf50;
+}
+
+/* Additional styles for new features */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 50%;
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+
+.swal-button-green {
+    background-color: #28a745 !important;
+    color: white !important;
+}
+.swal-button-red {
+    background-color: #dc3545 !important;
+    color: white !important;
+}
+.swal-button-yellow {
+    background-color: #ffc107 !important;
+    color: black !important;
+}
+.turf-details {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 5px;
+    max-width: 250px;
+}
+
+.turf-details h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.turf-details p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+@media (max-width: 1200px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .image-section, .form-section {
+        width: 100%;
+    }
+
+    header h1 {
+        font-size: 2em;
+    }
+
+    form input, form select, form textarea {
+        font-size: 0.9em;
+    }
+
+    .submit-btn {
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    header h1 {
+        font-size: 1.8em;
+    }
+
+    .container {
+        padding: 0 20px;
+    }
+
+    .image-section {
+        height: 200px;
+        width: 100%;
+    }
+
+    .bg-image {
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .form-section {
+        padding: 30px;
+    }
+
+    .submit-btn {
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+
+    .form-section {
+        padding: 20px;
+    }
+
+    form input, form select, form textarea {
+        font-size: 0.8em;
+    }
+
+    .submit-btn {
+        font-size: 1em;
+    }
+
+    .social-icon {
+        font-size: 1.3em;
+    }
+
+    footer {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 360px) {
+    header h1 {
+        font-size: 1.6em;
+    }
+
+    .turf-details {
+        font-size: 12px;
+    }
+
+    .social-media {
+        gap: 10px;
+    }
+
+    .social-icon {
+        font-size: 1.2em;
+    }
+}
+
+.swal-button-green {
+    background-color: #28a745 !important;
+    color: white !important;
+}
